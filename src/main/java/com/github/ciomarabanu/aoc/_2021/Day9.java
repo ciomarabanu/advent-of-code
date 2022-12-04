@@ -87,7 +87,7 @@ public class Day9 {
 
     private static boolean isLowPoint(Point2D point, List<List<Integer>> caveMap) {
         var num = caveMap.get(point.x()).get(point.y());
-        return  neighbourCoords(point.x(), point.y(), caveMap.size(), caveMap.get(0).size())
+        return  neighbourCoords(point.x(), point.y(), caveMap.size(), caveMap.get(0).size(), false)
                 .stream().map(p -> caveMap.get(p.x()).get(p.y()))
                 .allMatch(nei -> nei > num);
     }
@@ -106,7 +106,7 @@ public class Day9 {
 
     private static int basinSizeDFS(Point2D point, Set<Point2D> visited, List<List<Integer>> caveMap) {
         visited.add(point);
-        return 1 + neighbourCoords(point.x(), point.y(), caveMap.size(), caveMap.get(0).size())
+        return 1 + neighbourCoords(point.x(), point.y(), caveMap.size(), caveMap.get(0).size(), false)
                 .stream().filter(nei -> !visited.contains(nei) && caveMap.get(nei.x()).get(nei.y()) != 9)
                 .map(nei -> basinSizeDFS(nei, visited, caveMap))
                 .mapToInt(Integer::intValue)
